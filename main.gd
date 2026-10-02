@@ -38,6 +38,11 @@ func _on_connect_button_pressed() -> void:
 		$Panel/LogRichTextLabel.add_text("Disconnected. Press connect to rejoin.")
 		$Panel/LogRichTextLabel.newline()
 		$Panel/TextEdit.editable = false
+		var count = $Panel/HintPanel/ScrollContainer/VBoxContainer.get_child_count()
+		for i in count:
+			var node = $Panel/HintPanel/ScrollContainer/VBoxContainer.get_child(i)
+			$Panel/HintPanel/ScrollContainer/VBoxContainer.remove_child(node)
+			node.free()
 
 
 

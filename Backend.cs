@@ -82,7 +82,7 @@ public partial class Backend : Node
     public void Disconnect()
     {
         if (Session.Socket.Connected)
-            Session.Socket.DisconnectAsync().Wait();
+            Session.Socket.DisconnectAsync();
     }
 
     void OnHintUpdate(Hint[] hints)
