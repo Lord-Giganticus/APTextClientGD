@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="APTextClientGD"
+config/version="0.0.1"
+run/main_scene="uid://bad18smak08x6"
+config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
+boot_splash/show_image=false
+boot_splash/use_filter=false
+config/icon="uid://bolkab1w1wrd1"
+config/macos_native_icon="res://AP.icns"
+config/windows_native_icon="res://AP.ico"
+
+[display]
+
+window/size/resizable=false
+window/size/minimize_disabled=true
+window/size/maximize_disabled=true
+
+[dotnet]
+
+project/assembly_name="APTextClientGD"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
