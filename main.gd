@@ -6,11 +6,17 @@ var waiting_for_slot = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if FileAccess.file_exists("user://save.dat"):
+		var text = load_from_file()
+		if !text.is_empty():
+			$Panel/IPTextEdit.text = text
 	session = load("res://Backend.cs").new()
 	session.APChatText.connect(_on_ap_chat_text)
 	session.APHint.connect(_on_ap_hint)
 
 func _exit_tree() -> void:
+	if !$Panel/IPTextEdit.text.is_empty():
+		save_to_file($Panel/IPTextEdit.text)
 	$Panel/LogRichTextLabel.free()
 	session.free()
 
@@ -21,6 +27,7 @@ func _on_connect_button_pressed() -> void:
 		if ip == "Connection failed. The server may not be up!" or ip.is_empty():
 			$Panel/LogRichTextLabel.add_text("Connection failed. The server may not be up!")
 			$Panel/LogRichTextLabel.newline()
+			$Panel/IPTextEdit.clear()
 			return
 		$Panel/IPTextEdit.editable = false
 		waiting_for_slot = true
@@ -101,3 +108,12 @@ func _display_ap_hint(hints: Array) -> void:
 			label.text = item
 			box.add_child(label)
 		$Panel/HintPanel/ScrollContainer/VBoxContainer.add_child(box)
+
+func save_to_file(content: String):
+	var file = FileAccess.open("user://save.dat", FileAccess.WRITE)
+	file.store_string(content)
+
+func load_from_file():
+	var file = FileAccess.open("user://save.dat", FileAccess.READ)
+	var content = file.get_as_text()
+	return content
